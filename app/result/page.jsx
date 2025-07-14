@@ -6,7 +6,7 @@ import PhotoStrip from '@/components/PhotoStrip';
 
 export default function ResultPage() {
   const [photos, setPhotos] = useState([]);
-  const searchParams = useSearchParams(); // ✅ allowed here
+  const searchParams = useSearchParams(); 
   const router = useRouter();
 
   useEffect(() => {

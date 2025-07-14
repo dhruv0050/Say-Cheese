@@ -27,7 +27,7 @@ export default function PhotoStrip({ photos, onReshoot }) {
           <img key={i} src={src} alt={`strip-${i}`} className="w-48 rounded-md" />
         ))}
         <p className="text-xs text-center mt-2 text-black italic">
-          snapStrip • {new Date().toLocaleDateString()}
+          SayCheese • {new Date().toLocaleDateString()}
         </p>
       </div>
 
