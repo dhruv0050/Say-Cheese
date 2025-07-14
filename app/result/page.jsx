@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import PhotoStrip from '@/components/PhotoStrip';
 
 export default function ResultPage() {
   const [photos, setPhotos] = useState([]);
-  const searchParams = useSearchParams(); 
   const router = useRouter();
 
   useEffect(() => {
