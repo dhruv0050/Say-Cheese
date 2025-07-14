@@ -149,47 +149,6 @@ export default function Home() {
             </button>
           )}
         </div>
-
-        {/* Photo Preview Section */}
-        {photos.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-200/50">
-            <h3 className="text-xl sm:text-2xl font-light text-slate-800 mb-6 text-center">
-              Your Photos ({photos.length}/3)
-            </h3>
-            <div className="flex flex-wrap gap-4 justify-center">
-              {photos.map((src, i) => (
-                <div key={i} className="relative group">
-                  <img 
-                    src={src} 
-                    alt={`Photo ${i + 1}`}
-                    className="w-24 h-32 sm:w-32 sm:h-40 object-cover rounded-lg shadow-md 
-                               border-2 border-white group-hover:shadow-lg transition-all duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 
-                                  rounded-lg transition-all duration-300"></div>
-                </div>
-              ))}
-              
-              {/* Placeholder for remaining photos */}
-              {[...Array(3 - photos.length)].map((_, i) => (
-                <div key={`placeholder-${i}`} 
-                     className="w-24 h-32 sm:w-32 sm:h-40 bg-slate-100 rounded-lg 
-                                border-2 border-dashed border-slate-300 flex items-center justify-center">
-                  <span className="text-slate-400 text-sm font-light">
-                    {photos.length + i + 1}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="mt-12 text-center">
-        <p className="text-slate-400 text-sm font-light">
-          Ready when you are ✨
-        </p>
       </div>
     </main>
   );
