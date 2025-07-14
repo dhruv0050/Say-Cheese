@@ -116,7 +116,7 @@ export default function Home() {
             <div className="relative inline-block">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-thin text-white mb-4 tracking-wider photo-booth-title">
                 <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-                  PHOTO BOOTH
+                  SAY CHEESE!
                 </span>
               </h1>
               <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
