@@ -1,10 +1,10 @@
 'use client';
 import { useRef, useState } from 'react';
 import CameraFeed from '@/components/CameraFeed';
-import FilterSelector from '@/components/FilterSelector';
 import PhotoStrip from '@/components/PhotoStrip';
 import { useRouter } from 'next/navigation';
 import CountdownOverlay from '@/components/CountdownOverlay';
+import '../app/globals.css';
 
 export default function Home() {
   const [countdown, setCountdown] = useState(0);
@@ -34,15 +34,17 @@ export default function Home() {
   const capturePhotos = async () => {
     setIsCapturing(true);
     const captured = [];
-    
+
     for (let i = 0; i < 3; i++) {
       await startCountdown(); // wait 3..2..1
       const photo = captureFromVideo(videoRef.current, selectedFilter);
       captured.push(photo);
       setPhotos([...captured]);
     }
-    
-    sessionStorage.setItem('photoBoothStrip', JSON.stringify(captured));
+
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('photoBoothStrip', JSON.stringify(captured));
+    }
     setIsCapturing(false);
     router.push('/result');
   };
@@ -65,24 +67,14 @@ export default function Home() {
         return 'grayscale(100%) contrast(1.3) brightness(1.1)';
       case 'warm':
         return 'sepia(0.3) saturate(1.2) brightness(1.05) contrast(1.1)';
-      case 'cool':
-        return 'hue-rotate(180deg) saturate(1.1) brightness(1.05)';
       case 'dramatic':
         return 'contrast(1.4) brightness(0.95) saturate(1.3)';
-      case 'soft':
-        return 'blur(0.5px) brightness(1.1) saturate(1.1)';
       case 'vivid':
         return 'saturate(1.5) contrast(1.2) brightness(1.05)';
       case 'retro':
         return 'sepia(0.4) contrast(1.3) brightness(1.1) saturate(0.9) hue-rotate(10deg)';
       case 'dreamy':
         return 'blur(1px) brightness(1.15) saturate(1.2) contrast(0.9)';
-      case 'cyberpunk':
-        return 'hue-rotate(270deg) saturate(1.5) contrast(1.3) brightness(1.1)';
-      case 'golden':
-        return 'sepia(0.2) saturate(1.3) brightness(1.1) contrast(1.1) hue-rotate(15deg)';
-      case 'arctic':
-        return 'hue-rotate(180deg) saturate(0.7) brightness(1.2) contrast(1.1)';
       default:
         return 'none';
     }
@@ -90,66 +82,117 @@ export default function Home() {
 
   const clearPhotos = () => {
     setPhotos([]);
-    sessionStorage.removeItem('photoBoothStrip');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('photoBoothStrip');
+    }
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
-      {/* Header Section */}
-      <div className="text-center mb-8 sm:mb-12">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light text-slate-800 mb-2 tracking-wide">
-          Photo Booth
-        </h1>
-        <p className="text-slate-500 text-sm sm:text-base font-light">
-          Capture your moments in style
-        </p>
-      </div>
+    <>
+      <main className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-black flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        </div>
 
-      {/* Main Content Container */}
-      <div className="w-full max-w-4xl mx-auto">
-        {/* Camera Section */}
-        <div className="relative mb-8 sm:mb-12">
-          <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200/50">
-            <CameraFeed videoRef={videoRef} filter={selectedFilter} />
+        {/* Subtle Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-5" 
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        ></div>
+
+        {/* Main Content */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto">
+          {/* Header Section */}
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="relative inline-block">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-thin text-white mb-4 tracking-wider photo-booth-title">
+                <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+                  PHOTO BOOTH
+                </span>
+              </h1>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
+            </div>
+            <p className="text-gray-300 text-sm sm:text-base font-light mt-6 tracking-wide photo-booth-subtitle">
+              Strike a pose • Make memories • Live the moment
+            </p>
+          </div>
+
+          {/* Camera Section - Modernized Glass Card */}
+          <div className="relative mb-12 sm:mb-16 flex justify-center items-center">
+            <div className="relative group">
+              {/* Glass Card Container */}
+              <div className="relative bg-white/5 backdrop-blur-xl rounded-3xl p-8 sm:p-10 shadow-2xl border border-white/10 transform transition-all duration-700 hover:scale-105 hover:shadow-3xl camera-container">
+                {/* Inner Glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
+                
+                {/* Camera Feed */}
+                <div className="relative z-10">
+                  <CameraFeed
+                    videoRef={videoRef}
+                    filter={selectedFilter}
+                    onFilterChange={setSelectedFilter}
+                    onCapture={capturePhotos}
+                    isCapturing={isCapturing} 
+                  />
+                </div>
+                
+                {/* Decorative Corner Elements */}
+                <div className="absolute top-6 left-6 w-6 h-6 border-t-2 border-l-2 border-white/30 rounded-tl-lg"></div>
+                <div className="absolute top-6 right-6 w-6 h-6 border-t-2 border-r-2 border-white/30 rounded-tr-lg"></div>
+                <div className="absolute bottom-6 left-6 w-6 h-6 border-b-2 border-l-2 border-white/30 rounded-bl-lg"></div>
+                <div className="absolute bottom-6 right-6 w-6 h-6 border-b-2 border-r-2 border-white/30 rounded-br-lg"></div>
+              </div>
+            </div>
+            
+            {/* Enhanced Countdown Overlay */}
             <CountdownOverlay count={countdown} />
           </div>
-        </div>
 
-        {/* Filter Selection */}
-        <div className="mb-8 sm:mb-12">
-          <FilterSelector selected={selectedFilter} onChange={setSelectedFilter} />
-        </div>
+          {/* Action Buttons - Minimalist Design */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+            {photos.length > 0 && (
+              <button
+                onClick={clearPhotos}
+                className="group relative px-8 py-4 rounded-full font-light text-white/90 
+                           bg-white/5 backdrop-blur-md border border-white/10 
+                           hover:bg-white/10 hover:border-white/20 transition-all duration-500
+                           shadow-lg hover:shadow-xl transform hover:scale-105
+                           overflow-hidden clear-button"
+              >
+                {/* Button Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 via-transparent to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Button Text */}
+                <span className="relative z-10 tracking-wide text-sm sm:text-base">
+                  Clear Photos
+                </span>
+                
+                {/* Shine Effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transform transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent shine-effect"></div>
+              </button>
+            )}
+          </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <button
-            onClick={capturePhotos}
-            disabled={isCapturing}
-            className={`
-              px-8 py-4 rounded-full font-medium text-white text-lg
-              transition-all duration-300 transform hover:scale-105
-              shadow-lg hover:shadow-xl
-              ${isCapturing 
-                ? 'bg-slate-400 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600'
-              }
-            `}
-          >
-            {isCapturing ? 'Capturing...' : 'Start Photo Session'}
-          </button>
-
-          {photos.length > 0 && (
-            <button
-              onClick={clearPhotos}
-              className="px-6 py-3 rounded-full font-medium text-slate-600 bg-white 
-                         border border-slate-200 hover:bg-slate-50 transition-all duration-300
-                         shadow-md hover:shadow-lg"
-            >
-              Clear Photos
-            </button>
+          {/* Status Indicator */}
+          {isCapturing && (
+            <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+              <div className="bg-black/70 backdrop-blur-md rounded-full px-6 py-3 flex items-center gap-3 border border-white/20">
+                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                <span className="text-white text-sm font-light tracking-wide">CAPTURING</span>
+              </div>
+            </div>
           )}
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
