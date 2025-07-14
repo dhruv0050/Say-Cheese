@@ -25,7 +25,6 @@ export default function ResultPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-4">📸 Here's Your Strip!</h1>
       {photos.length === 3 && (
         <PhotoStrip photos={photos} onReshoot={handleReshoot} />
       )}

@@ -89,12 +89,12 @@ export default function Home() {
 
   return (
     <>
-      <main className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-black flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
+      <main className="min-h-screen bg-gradient-to-br from-[#171717] via-[#262626] to-black flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 relative overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from- to-orange-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
         </div>
 
         {/* Subtle Grid Pattern */}

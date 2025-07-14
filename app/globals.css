@@ -4,13 +4,13 @@
   --background: #ffffff;
   --foreground: #171717;
 }
-
+/* 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -72,15 +72,7 @@ body {
         .clear-button {
           animation: fadeInUp 1s ease-out 1s both;
         }
-        
-        .shine-effect {
-          transform: translateX(-100%) skewX(12deg);
-        }
-        
-        .clear-button:hover .shine-effect {
-          transform: translateX(100%) skewX(12deg);
-        }
-        
+
         /* Ensure proper backdrop blur support */
         .backdrop-blur-xl {
           backdrop-filter: blur(24px);
@@ -96,24 +88,6 @@ body {
         .shadow-3xl {
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.5);
         }
-        .shine-effect {
-          transform: translateX(-100%) skewX(12deg);
-        }
-        
-        .group:hover .shine-effect {
-          transform: translateX(100%) skewX(12deg);
-        }
-        
-        .backdrop-blur-xl {
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-        }
-        
-        .backdrop-blur-md {
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-        }
-        
         .shadow-3xl {
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.5);
         }
@@ -133,3 +107,17 @@ body {
         .shadow-inner {
           box-shadow: inset 0 2px 8px 0 rgba(0, 0, 0, 0.3);
         }
+
+/* Ensures html2canvas doesn't encounter oklch colors */
+.html2canvas-safe {
+  background: #fff !important;
+  color: #222 !important;
+  border-color: #ccc !important;
+  box-shadow: none !important;
+}
+.html2canvas-safe * {
+  background: transparent !important;
+  color: #222 !important;
+  border-color: #ccc !important;
+  box-shadow: none !important;
+}

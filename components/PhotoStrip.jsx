@@ -1,7 +1,6 @@
 'use client';
 import { useRef } from 'react';
 import html2canvas from 'html2canvas';
-import '../app/globals.css';
 
 export default function PhotoStrip({ photos, onReshoot }) {
   const stripRef = useRef(null);
@@ -24,16 +23,16 @@ export default function PhotoStrip({ photos, onReshoot }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#171717] via-[#262626] to-black flex flex-col items-center justify-center p-4 relative overflow-hidden rounded-xl">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#a855f7] to-[#ec4899] rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
       </div>
 
       {/* Header */}
       <div className="text-center mb-8 relative z-10">
-        <h1 className="text-4xl sm:text-5xl font-thin text-white mb-2 tracking-wider">
+        <h1 className="text-3xl sm:text-5xl font-thin text-white mb-2 tracking-wider">
           <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
             YOUR MEMORIES
           </span>
@@ -52,17 +51,18 @@ export default function PhotoStrip({ photos, onReshoot }) {
           <div className="relative z-10 p-8 sm:p-10">
             <div
               ref={stripRef}
-              className="bg-white shadow-2xl transform transition-all duration-300 hover:shadow-3xl"
+              className="bg-white shadow-2xl transform transition-all duration-300 hover:shadow-3xl html2canvas-safe"
               style={{
                 width: '280px',
                 padding: '20px',
                 borderRadius: '8px',
-                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)'
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)', // Only hex colors
+                color: '#222', // Set a safe text color
               }}
             >
               {/* Header Section */}
               <div className="text-center mb-4 border-b-2 border-dashed border-gray-300 pb-3">
-                <h2 className="text-lg font-bold text-gray-800 tracking-wide">PHOTO BOOTH</h2>
+                <h2 className="text-lg font-bold text-gray-800 tracking-wide">SayCheese</h2>
                 <p className="text-xs text-gray-500 mt-1">INSTANT MEMORIES</p>
               </div>
 
@@ -94,9 +94,6 @@ export default function PhotoStrip({ photos, onReshoot }) {
                   <span>{new Date().toLocaleDateString()}</span>
                 </div>
                 <div className="text-center mt-2">
-                  <p className="text-xs text-gray-500 italic">
-                    {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </p>
                 </div>
               </div>
 
@@ -120,7 +117,7 @@ export default function PhotoStrip({ photos, onReshoot }) {
                        overflow-hidden"
           >
             {/* Button Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 rounded-full" style={{ background: 'rgba(34,197,94,0.2)' }}></div>
             
             {/* Button Text */}
             <span className="relative z-10 tracking-wide text-sm sm:text-base">
@@ -130,7 +127,6 @@ export default function PhotoStrip({ photos, onReshoot }) {
             {/* Shine Effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transform transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent shine-effect"></div>
           </button>
-
           <button
             onClick={downloadStrip}
             className="group relative flex-1 px-6 py-4 rounded-full font-light text-white/90 
@@ -140,7 +136,7 @@ export default function PhotoStrip({ photos, onReshoot }) {
                        overflow-hidden"
           >
             {/* Button Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 via-transparent to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="absolute inset-0 rounded-full" style={{ background: 'rgba(34,197,94,0.2)' }}></div>
             
             {/* Button Text */}
             <span className="relative z-10 tracking-wide text-sm sm:text-base">
@@ -150,6 +146,7 @@ export default function PhotoStrip({ photos, onReshoot }) {
             {/* Shine Effect */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transform transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent shine-effect"></div>
           </button>
+
         </div>
       </div>
     </div>
